@@ -3,7 +3,12 @@
 int main(int argc,const char * argv[])
 {
 
-    printf("helloworld!\n");
+    int i;
+    for (i = 0; i < 10; i++) 
+    {
+        printf("helloworld!\n");
+    }
+    
     return 0;
 
 }
