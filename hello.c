@@ -17,5 +17,5 @@ int main(int argc,const char * argv[])
 
 void say_three_hello()
 {
-    printf("hello\n");
+    printf("helloworld\n");
 }
