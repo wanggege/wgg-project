@@ -12,6 +12,6 @@ typedef struct
 }fbscr_t;
 
 int init_data(void);
-
+int fb_one_pixel(int x, int y, u32_t color);
 
 #endif

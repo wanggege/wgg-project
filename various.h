@@ -2,6 +2,6 @@
 #define _VAR_H_
 
 #include "func.h"
-extern fdscr_t fd_v;
+extern fbscr_t fb_v;
 
 #endif
