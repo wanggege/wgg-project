@@ -185,13 +185,14 @@ int mouse_doing(void)
 			{
 			    my = fb_v.h - C_H;
 			}
-
+          
+		    //鼠标按键信息处理
 			switch(m_e.button)
 			{
-			    case 1:fb_circle(mx,my,13,0x00ffffff);
+			    case 1:fb_circle(mx,my,13,0x00ffffff); //左键按下画棋子
 				       break;
-				case 2:break;
-				case 4:break;
+				case 2:break; //右键按下
+				case 4:break; //中键按下
 				default:break;
 			}
 
