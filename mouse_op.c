@@ -185,6 +185,16 @@ int mouse_doing(void)
 			{
 			    my = fb_v.h - C_H;
 			}
+
+			switch(m_e.button)
+			{
+			    case 1:fb_circle(mx,my,13,0x00ffffff);
+				       break;
+				case 2:break;
+				case 4:break;
+				default:break;
+			}
+
 		    draw_cursor(mx, my);
 	    }
     }
