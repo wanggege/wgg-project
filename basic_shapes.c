@@ -10,6 +10,7 @@
 * 作    者：王阁阁
 * 日    期：2011-08-18
 *****************************************/
+
 int fb_one_pixel(int x, int y, u32_t color)
 {
     *((u32_t *)fb_v.memo + y * fb_v.w + x) = color; //计算该坐标相对原坐标的地址并画点
@@ -120,8 +121,8 @@ int fb_circle(int x0, int y0, int r, u32_t color)
 
 	while(x<=y)
 	{
-
-#if 0   画虚心圆，根据八分之一圆对称的方法
+#if 0
+        画虚心圆，根据八分之一圆对称的方法
 	    fb_one_pixel(x0+x, y0+y, color);
 	    fb_one_pixel(x0+y, y0+x, color);
 	    fb_one_pixel(x0+x, y0-y, color);
