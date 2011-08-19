@@ -137,6 +137,26 @@ int get_mouse_info(int fd, mouse_event *m_e)
 	return n;
 }
 
+/******************************
+*函 数 名：reinit
+*函数功能：重新初始化游戏
+*作    者：王阁阁
+*日    期：2011-08-19
+*****************************/
+
+int reinit(void)
+{
+    memset(fb_v.memo, 0, fb_v.h*fb_v.w*fb_v.bpp/8);
+	print_board();
+	memset(chess_board, 0 ,X_NUM*Y_NUM);
+	player = 1;
+	current_color = BLACK;
+	mx = fb_v.w / 2;
+	my = fb_v.h / 2;
+
+	draw_cursor(mx, my);
+	return 0;
+}
 
 /******************************
 *函 数 名：mouse_doing
@@ -211,7 +231,9 @@ int mouse_doing(void)
 			if(winner > 0)
 			{
 			    printf("player %d win!\n",winner);
-				break;
+				getchar();
+				winner = 0;
+				reinit();                         //屏幕重新初始化
 
 			}
 	    }

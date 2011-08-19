@@ -11,6 +11,15 @@
 int print_board(void)
 {
     int i = 0;
+	int j = 0;
+	//打印棋盘颜色
+	for (j = ST_Y-20; j < Y_NUM*SPACE+30; j++) 
+	{
+		for (i = ST_X-80; i < X_NUM*SPACE+SPACE*2+50; i++) 
+		{
+			fb_one_pixel(i, j, YELLOW);
+		}
+	}
 
     //打印横线
     for(i = 0; i < Y_NUM; i++)
