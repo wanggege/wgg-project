@@ -38,5 +38,6 @@ int save_bg(int x, int y);
 int restore(int x, int y);
 int get_mouse_info(int fd, mouse_event *p);
 int mouse_doing(void);
+int chess_doing(void);
 
 #endif

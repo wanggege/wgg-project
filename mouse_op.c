@@ -189,7 +189,7 @@ int mouse_doing(void)
 		    //鼠标按键信息处理
 			switch(m_e.button)
 			{
-			    case 1:fb_circle(mx,my,13,0x00ffffff); //左键按下画棋子
+			    case 1:chess_doing();    //左键按下画棋子
 				       break;
 				case 2:break; //右键按下
 				case 4:break; //中键按下
