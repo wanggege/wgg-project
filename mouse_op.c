@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include "various.h"
@@ -148,7 +149,9 @@ int mouse_doing(void)
 {
     int fd = 0;             //鼠标设备文件的文件表述符
 	mouse_event m_e;        //存储鼠标信息的结构体
-	
+    char press_do = 0;
+	char winner = 0;
+
 	fd = open("/dev/input/mice",O_RDWR|O_NONBLOCK);  //非阻塞方式打开设备文件
 	if(fd == -1)
 	{
@@ -189,17 +192,32 @@ int mouse_doing(void)
 		    //鼠标按键信息处理
 			switch(m_e.button)
 			{
-			    case 1:chess_doing();    //左键按下画棋子
+			    case 0:
+				if(press_do == 1)
+				{
+				    press_do = 0;
+					winner = chess_doing();       //检查游戏是否结束
+				}
+				      break;
+			    case 1:press_do = 1;             //左键按下画棋子
 				       break;
-				case 2:break; //右键按下
-				case 4:break; //中键按下
+				case 2:break;                    //右键按下
+				case 4:break;                    //中键按下
 				default:break;
 			}
 
 		    draw_cursor(mx, my);
-	    }
-    }
 
+			if(winner > 0)
+			{
+			    printf("player %d win!\n",winner);
+				break;
+
+			}
+	    }
+		usleep(500);
+    }
+    close(fd);
 	return 0;
 
 }

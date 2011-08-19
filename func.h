@@ -8,6 +8,9 @@
 #define X_NUM    29            //横向方格的个数
 #define Y_NUM    24            //纵向方格的个数
 
+#define BLACK 0x000000ff
+#define WHTTE 0x00ffffff
+
 typedef unsigned int u32_t;
 typedef unsigned char u8_t;
 

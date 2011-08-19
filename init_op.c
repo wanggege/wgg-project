@@ -11,6 +11,10 @@ fbscr_t fb_v;
 int mx;            //鼠标位置横坐标
 int my;            //鼠标位置纵坐标
 
+char chess_board[X_NUM*Y_NUM];       //棋盘标记
+u32_t current_color;                 //当前进行的玩家棋子颜色
+char player;                         //当前玩家
+
 /******************************************
 * 函数名：init_data
 * 功  能: 将屏幕缓冲区映射到用户空间，并初始化
@@ -50,18 +54,9 @@ int init_data(void)
     }
 
     memset(fb_v.memo, 0, screensize);   //清屏
+    memset(chess_board, 0 ,X_NUM*Y_NUM);  //棋盘标记数组初始化
+    current_color = BLACK;                //玩家一的棋子颜色
+	player = 1;                           //玩家一先开始游戏
 
-#if 0
-    int i;
-    u32_t *p = fb_v.memo;
-    for(i = 0; i < fb_v.w; i++)
-    {
-        p[i] = 0x0000ff00;
-    }
-    for(i = 0; i < fb_v.h; i++)
-    {
-        p[i] = 0x00ffff00;
-    }
-#endif
     return 0;
 }
