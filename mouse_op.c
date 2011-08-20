@@ -56,6 +56,10 @@ int draw_cursor(int x, int y)
     int j;
 
     save_bg(x, y);
+//	if(chess_board[x+y*X_NUM] > 0)
+//	{
+//	    return 0;
+//	}
     for (j = 0; j < C_H; j++)         
     {
         for (i = 0; i < C_W; i++) 

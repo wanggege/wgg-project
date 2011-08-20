@@ -154,9 +154,16 @@ int chess_doing(void)
 	    cy += SPACE;
 	}
 
-	fb_circle(cx, cy, 13, current_color);  //放置棋子
+    if(chess_board[(cx-ST_X)/SPACE+((cy-ST_Y)/SPACE)*X_NUM])//该位置上是否有棋子
+	{
+	    return 0;
+	}
+    else
+	{
+	    fb_circle(cx, cy, 13, current_color);  //放置棋子
+	}
 
-	winner = chess_put((cx-ST_X)/SPACE, (cy-ST_Y)/SPACE);  //是否有赢家
+    winner = chess_put((cx-ST_X)/SPACE, (cy-ST_Y)/SPACE);  //是否有赢家
 	if(winner > 0)
 	{
 	    return winner;
