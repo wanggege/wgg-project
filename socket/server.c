@@ -3,8 +3,9 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
-#include <string.h>
 #include <unistd.h>
+#include <sys/time.h>
+#include <sys/ioctl.h>
 
 int main()
 {
@@ -12,27 +13,30 @@ int main()
     int server_len, client_len;
     struct sockaddr_in server_address;
     struct sockaddr_in client_address;
+    int result;
+    fd_set readfds, testfds;
 
     server_sockfd = socket(AF_INET, SOCK_STREAM, 0);
     server_address.sin_family = AF_INET;
-    server_address.sin_addr.s_addr = inet_addr("127.0.0.1");
-    server_address.sin_port = 8000;
+    server_address.sin_addr.s_addr = htonl(INADDR_ANY);
+    server_address.sin_port = htons(8000);
     server_len = sizeof(server_address);
 
     bind(server_sockfd, (struct sockaddr *)&server_address, server_len);
 
     listen(server_sockfd, 5);
+    FD_ZERO(&readfds);
+    FD_SET(server_sockfd, &readfds);
     while(1)
     {
         char ch;
+	int fd;
+	int nread;
+
+	testfds = readfds;
 
 	printf("server waiting\n");
-	client_len = sizeof(client_address);
-	client_sockfd = accept(server_sockfd, (struct sockaddr *)&client_sockfd, &client_len);
-
-	read(client_sockfd, &ch, 1);
-	ch++;
-	write(client_sockfd, &ch, 1);
+	result = select(FD_SETSIZE, &testfds, (fd_set *)NULL, (fd_set *)NULL, (struct timeval *)0);
 	close(client_sockfd);
     }
 

@@ -122,7 +122,7 @@ int analyse_num(char *str, char *correctnum)
 	return 0;
     }
    
-    if((strlen(str) != 4) || (is_digital(str) == 0)) //判断输入是否合法
+    if((strlen(str) > 4) || (is_digital(str) == 0)) //判断输入是否合法
     {
         printf("Invalid input\n");
         return 1;
@@ -176,8 +176,10 @@ int analyse_num(char *str, char *correctnum)
 
     if(count_diff>0)
     {
-        printf("%dB\n",count_diff);  
+        printf("%dB",count_diff);  
     }
+    printf("\n");
+//    printf("%s\n",numstr);
  
     return 1;
 }
