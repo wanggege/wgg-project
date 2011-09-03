@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <sys/un.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -9,13 +10,15 @@ int main()
 {
     int server_sockfd, client_sockfd;
     int server_len, client_len;
-    struct sockaddr_un server_address;
-    struct sockaddr_un client_address;
-    unlink("server_sockfd");
-    server_sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
-    server_address.sun_family = AF_UNIX;
-    strcpy(server_address.sun_path, "server_socket");
+    struct sockaddr_in server_address;
+    struct sockaddr_in client_address;
+
+    server_sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    server_address.sin_family = AF_INET;
+    server_address.sin_addr.s_addr = inet_addr("127.0.0.1");
+    server_address.sin_port = 8000;
     server_len = sizeof(server_address);
+
     bind(server_sockfd, (struct sockaddr *)&server_address, server_len);
 
     listen(server_sockfd, 5);
