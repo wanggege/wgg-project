@@ -1,37 +1,38 @@
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa//inet.h>
-#include <sys/types.h>
+/* client.c */
 #include <stdio.h>
-#include <sys/stat.h>
+#include <string.h>
 #include <unistd.h>
-#include <stdlib.h>
+#include <netinet/in.h>
+#include "wrap.h"
 
-int main()
+#define MAXLINE 80
+#define SERV_PORT 8000
+
+int main(int argc, char *argv[])
 {
-    int sockfd;
-    int len;
-    int result;
-    struct sockaddr_in address;
-    char ch = 'A';
+	struct sockaddr_in servaddr;
+	char buf[MAXLINE];
+	int sockfd, n;
+    
+	sockfd = Socket(AF_INET, SOCK_STREAM, 0);
 
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = inet_addr("127.0.0.1");
-    address.sin_port = 8000;
-    len = sizeof(address);
+	bzero(&servaddr, sizeof(servaddr));
+	servaddr.sin_family = AF_INET;
+	inet_pton(AF_INET, "127.0.0.1", &servaddr.sin_addr);
+	servaddr.sin_port = htons(SERV_PORT);
+    
+	Connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
-    result = connect(sockfd, (struct sockaddr *)&address, len);
-    if(result == -1)
-    {
-        perror(" client connect");
-	exit(1);
-    }
+	while (fgets(buf, MAXLINE, stdin) != NULL)
+  {
+		Write(sockfd, buf, strlen(buf));
+		n = Read(sockfd, buf, MAXLINE);
+		if (n == 0)
+			printf("the other side has been closed.\n");
+		else
+			Write(STDOUT_FILENO, buf, n);
+	}
 
-    write(sockfd, &ch, 1);
-    read(sockfd, &ch, 1);
-    printf("char from server = %c\n",ch);
-    close(sockfd);
-
-    return 0;
+	Close(sockfd);
+	return 0;
 }
