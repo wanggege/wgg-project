@@ -80,3 +80,9 @@ wanggege
     from 12345678(gro)/hello
     to gro/hello
     from wanggege(gro)/hello
+wwwwwwww
+kkkkkkkk
+    to gro/hello
+    from kkkkkkkk(gro)/hello
+    to gro/nihao
+    from wwwwwwww(gro)/nihao
